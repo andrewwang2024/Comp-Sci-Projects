@@ -10,11 +10,4 @@ public class Main {
         }
     }
 }
-
-//Hi Andrew
-//Hello Zack
-//Oh so you can see my edits live
-//Good.
-//But I think we have to commit in order to save.
-//yep
-//See you
+//Test
