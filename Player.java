@@ -4,7 +4,6 @@ public class Player {
     // Stores ship positions
     public boolean[][] ships;
 
-
     // Stores guesses of where opponent guessed
     public boolean[][] hits;
 
@@ -20,6 +19,8 @@ public class Player {
         boolean[] isOccupiedArray = {true, true, true};
         boolean isOccupied;
         boolean orientation;
+        int impossibleVerticalIncrement = 0;
+        int impossibleHorizontalIncrement = 0;
 
         // Initialization of board arrays
         ships = new boolean[size][size];
@@ -28,16 +29,12 @@ public class Player {
         // Initialization of ship hits
         shipHitsLeft = shipNum * 3;
 
-        
         for (int i = 1; i <= shipNum; i++) {
             // Checks number of ships and adjusts accordingly
             if (shipNum * 3 >= size * size) {
+                shipNum = size * size / 3;
                 if (shipNum * 3 == size * size) {
                     shipNum--;
-
-                }
-                else {
-                    shipNum = size * size / 3;
                 }
                 System.out.println("Not enought space! Number of ships is now " + shipNum + "!");
             }
@@ -56,6 +53,9 @@ public class Player {
                 // Checks Horizonal Positioning
                 randomHorizontalCheck:
                 for (int k = 1; k <= shipNum; k++) {
+                    if (impossibleHorizontalIncrement > shipNum * 100) {
+                        break randomHorizontalCheck;
+                    }
                     shipX = rand.nextInt(size - 3);
                     shipY = rand.nextInt(size);
                     isOccupied = false;
@@ -74,6 +74,11 @@ public class Player {
                     }
                     else {
                         k--;
+                        impossibleHorizontalIncrement++;
+                        if (impossibleHorizontalIncrement > shipNum * 100) {
+                            System.out.println("Can only place " + i + " ships!");
+                            break randomHorizontalCheck;
+                        }
                         continue randomHorizontalCheck;
                     }
                 }
@@ -82,6 +87,9 @@ public class Player {
                 // Checks Vertical Position
                 randomVerticalCheck:
                 for (int k = 1; k <= shipNum; k++) {
+                    if (impossibleVerticalIncrement > shipNum * 100) {
+                        break randomVerticalCheck;
+                    }
                     isOccupied = false;
                     shipX = rand.nextInt(size);
                     shipY = rand.nextInt(size - 3);
@@ -100,6 +108,11 @@ public class Player {
                     }
                     else {
                         k--;
+                        impossibleVerticalIncrement++;
+                        if (impossibleVerticalIncrement > shipNum * 100) {
+                            System.out.println("Can only place " + i + " ships!");
+                            break randomVerticalCheck;
+                        }
                         continue randomVerticalCheck;
                     }
                 }
