@@ -1,2 +1,3 @@
-# Comp-Sci-Projects
-In the upper left corner, you can select the branches and choose a project
+# Trimester 1 Project: Battleship
+Features:
+- Creates the battleship game
