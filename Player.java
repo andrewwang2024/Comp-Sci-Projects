@@ -19,17 +19,18 @@ public class Player {
         int shipY;
         boolean[] isOccupiedArray = {true, true, true};
         boolean isOccupied;
-        /*
-         *  Orientation is a boolean that determines orientation
-         *  Output:
-         *  true - horizontal
-         *  false - vertical
-         */
         boolean orientation;
+
+        // Initialization of board arrays
         ships = new boolean[size][size];
         hits = new boolean[size][size];
+
+        // Initialization of ship hits
         shipHitsLeft = shipNum * 3;
+
+        
         for (int i = 1; i <= shipNum; i++) {
+            // Checks number of ships and adjusts accordingly
             if (shipNum * 3 >= size * size) {
                 if (shipNum * 3 == size * size) {
                     shipNum--;
@@ -40,6 +41,7 @@ public class Player {
                 }
                 System.out.println("Not enought space! Number of ships is now " + shipNum + "!");
             }
+
             // Code block for orientation determination
             orientationNum = rand.nextInt(2);
             if (orientationNum == 0) {
@@ -48,8 +50,10 @@ public class Player {
             else {
                 orientation = false;
             }
+
             // Code block for ship positioning
             if (orientation) {
+                // Checks Horizonal Positioning
                 randomHorizontalCheck:
                 for (int k = 1; k <= shipNum; k++) {
                     shipX = rand.nextInt(size - 3);
@@ -75,6 +79,7 @@ public class Player {
                 }
             }
             else {
+                // Checks Vertical Position
                 randomVerticalCheck:
                 for (int k = 1; k <= shipNum; k++) {
                     isOccupied = false;
