@@ -63,7 +63,7 @@ public class Player {
             else {
                 orientation = false;
             }
-            
+
             // Checks for impossible orientations when spaces are limited
             if (impossibleVertical) {
                 orientation = true;
@@ -108,6 +108,7 @@ public class Player {
                         impossibleHorizontalIncrement++;
                         if (impossibleHorizontalIncrement > shipNum * 1000) {
                             impossibleHorizontal = true;
+                            i--;
                             System.out.println("Can only place " + i + " ships!");
                             break randomHorizontalCheck;
                         }
@@ -148,10 +149,51 @@ public class Player {
                         impossibleVerticalIncrement++;
                         if (impossibleVerticalIncrement > shipNum * 1000) {
                             impossibleVertical = true;
+                            i--;
                             System.out.println("Can only place " + i + " ships!");
                             break randomVerticalCheck;
                         }
                         continue randomVerticalCheck;
+                    }
+                }
+            }
+            if (impossibleHorizontal && impossibleVertical) {
+                for (int k = 0; k < ships.length; k++) {
+                    for (int j = 0; j <= ships.length - 3; j++) {
+                        isOccupied = false;
+                        for (int l = 0; l < 3; l++) {
+                            isOccupiedArray[l] = ships[k][j + l];
+                            if (isOccupiedArray[l]) {
+                                isOccupied = true;
+                                break;
+                            }
+                        }
+                        if (!isOccupied) {
+                            for (int l = 0; l < 3; l++) {
+                                ships[k][j + l] = true;
+                            }
+                            System.out.println("Can only place " + i + " ships!");
+                            break;
+                        }
+                    }
+                }
+                for (int k = 0; k <= ships.length - 3; k++) {
+                    for (int j = 0; j < ships.length; j++) {
+                        isOccupied = false;
+                        for (int l = 0; l < 3; l++) {
+                            isOccupiedArray[l] = ships[k + l][j];
+                            if (isOccupiedArray[l]) {
+                                isOccupied = true;
+                                break;
+                            }
+                        }
+                        if (!isOccupied) {
+                            for (int l = 0; l < 3; l++) {
+                                ships[k + l][j] = true;
+                            }
+                            System.out.println("Can only place " + i + " ships!");
+                            break;
+                        }
                     }
                 }
             }
