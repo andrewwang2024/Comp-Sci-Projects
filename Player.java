@@ -79,7 +79,7 @@ public class Player {
                 randomHorizontalCheck:
                 for (int k = 1; k <= shipNum; k++) {
                     // Checks if horizontal positioning is impossible
-                    if (impossibleHorizontalIncrement > shipNum * 100) {
+                    if (impossibleHorizontalIncrement > shipNum * 1000) {
                         break randomHorizontalCheck;
                     }
 
@@ -106,7 +106,7 @@ public class Player {
                         // Tells computer to find a new location if space is occupied
                         k--;
                         impossibleHorizontalIncrement++;
-                        if (impossibleHorizontalIncrement > shipNum * 100) {
+                        if (impossibleHorizontalIncrement > shipNum * 1000) {
                             impossibleHorizontal = true;
                             System.out.println("Can only place " + i + " ships!");
                             break randomHorizontalCheck;
@@ -120,7 +120,7 @@ public class Player {
                 randomVerticalCheck:
                 for (int k = 1; k <= shipNum; k++) {
                     // Checks if veritical positioning is impossible
-                    if (impossibleVerticalIncrement > shipNum * 100) {
+                    if (impossibleVerticalIncrement > shipNum * 1000) {
                         break randomVerticalCheck;
                     }
                     isOccupied = false;
@@ -146,7 +146,7 @@ public class Player {
                         // Tells computer to find a new location if space is occupied
                         k--;
                         impossibleVerticalIncrement++;
-                        if (impossibleVerticalIncrement > shipNum * 100) {
+                        if (impossibleVerticalIncrement > shipNum * 1000) {
                             impossibleVertical = true;
                             System.out.println("Can only place " + i + " ships!");
                             break randomVerticalCheck;
