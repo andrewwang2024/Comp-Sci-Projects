@@ -45,9 +45,9 @@ public class Main extends JPanel {
 		
 	    for ( ; ; ) {
 			System.out.print("Please input x-coordinate of guess: ");
-			int xGuess = input.nextInt();
+			int xGuess = input.nextInt() - 1;
 			System.out.print("Please input y-coordinate of guess: ");
-			int yGuess = input.nextInt();
+			int yGuess = input.nextInt() - 1;
 			if (computer.beenGuessed(xGuess, yGuess)) {
 				System.out.println("This space has already been guessed!");
 				continue;
@@ -59,7 +59,7 @@ public class Main extends JPanel {
 			else {
 				System.out.println("You missed!");
 			}
-			if (computer.getShipNum() == 0) {
+			if (computer.hitsLeft() == 0) {
 				System.out.println("You Win!");
 				break;
 			}
