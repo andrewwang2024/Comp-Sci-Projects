@@ -1,4 +1,8 @@
 import java.util.*;
+import java.awt.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 
 public class Player {
     // Stores ship positions
@@ -9,6 +13,8 @@ public class Player {
 
     // Total number of ship slots not hit
     private int shipHitsLeft;
+
+    private int shipNum;
 
     // Renamed parameters 'n' and 's' to 'size' and 'shipNum' for readability
     public Player(int size, int shipNum) {
@@ -84,7 +90,13 @@ public class Player {
                     }
 
                     // Upper left x-coord is move to the left by 3
-                    shipX = rand.nextInt(size - 3);
+                    try {
+                        shipX = rand.nextInt(size - 3);
+                    }
+                    catch (Exception e) {
+                        shipX = 0;
+                    }
+                    
                     shipY = rand.nextInt(size);
                     isOccupied = false;
 
@@ -110,6 +122,8 @@ public class Player {
                             impossibleHorizontal = true;
                             i--;
                             System.out.println("Can only place " + i + " ships!");
+                            shipHitsLeft = i * 3;
+                            this.shipNum = i;
                             break randomHorizontalCheck;
                         }
                         continue randomHorizontalCheck;
@@ -127,7 +141,12 @@ public class Player {
                     isOccupied = false;
                     shipX = rand.nextInt(size);
                     // Upper left y-coord is moved 3 units up
-                    shipY = rand.nextInt(size - 3);
+                    try {
+                        shipY = rand.nextInt(size - 3);
+                    }
+                    catch (Exception e) {
+                        shipY = 0;
+                    } 
 
                     // Checks for occupied spaces where the ship is going to be placed
                     for (int j = 0; j < 3; j++) {
@@ -151,6 +170,8 @@ public class Player {
                             impossibleVertical = true;
                             i--;
                             System.out.println("Can only place " + i + " ships!");
+                            shipHitsLeft = i * 3;
+                            this.shipNum = i;
                             break randomVerticalCheck;
                         }
                         continue randomVerticalCheck;
@@ -173,6 +194,8 @@ public class Player {
                                 ships[k][j + l] = true;
                             }
                             System.out.println("Can only place " + i + " ships!");
+                            shipHitsLeft = i * 3;
+                            this.shipNum = i;
                             break;
                         }
                     }
@@ -192,6 +215,8 @@ public class Player {
                                 ships[k + l][j] = true;
                             }
                             System.out.println("Can only place " + i + " ships!");
+                            shipHitsLeft = i * 3;
+                            this.shipNum = i;
                             break;
                         }
                     }
@@ -200,11 +225,11 @@ public class Player {
         }
     }
 
-    // Renamed method 'fire' to 'isShip' for readability
+    // Renamed method 'fire' to 'fireShip' for readability
     // Renamed parameters 'x' and 'y' to 'xPos' and 'yPos' for readability
 
     // Will implement guess check in driver class;
-    public boolean isShip(int xPos, int yPos) {
+    public boolean fireShip(int xPos, int yPos) {
         boolean hit;
         if (ships[xPos][yPos] == true) {
             hit = true;
@@ -236,4 +261,13 @@ public class Player {
     public int getSize() {
         return ships.length;
     }
+
+    public int getShipNum() {
+        return shipNum;
+    }
+
+    public void draw(Graphics g){
+        g.setColor(Color.BLACK);
+        g.drawLine(0, 10, 600, 10);
+      }
 }

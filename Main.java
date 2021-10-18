@@ -1,6 +1,18 @@
-public class Main {
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
-	// TODO: Test method isShip (Will need to rename method)
+import java.awt.*;
+import java.util.Scanner;
+
+public class Main extends JPanel {
+	private static Player genericPlayer;
+
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		genericPlayer.draw(g);
+
+	}
+
 
 	/*
 	 *	Ideas for game board.
@@ -14,12 +26,43 @@ public class Main {
 	 */
 
     public static void main(String[] args) {
-	    Player test = new Player(9, 100);
-	    for (int i = 0; i < test.getSize(); i++) {
-	        for (int k = 0; k < test.getSize(); k++) {
-	            System.out.print("" + test.ships[i][k] + " ");
-            }
-	        System.out.print("\n");
-        }
+		Scanner input = new Scanner(System.in);
+		System.out.print("Please input size: ");
+		int size = input.nextInt();
+		System.out.print("Please input number of ships: ");
+		int shipNum = input.nextInt();
+		Player player = new Player(size, shipNum);
+		genericPlayer = player;
+		Player computer = new Player(player.getSize(), player.getShipNum());
+		// 3JFrame window = new JFrame("Battleship");
+        /* window.setBounds(100, 100, 300, 300);
+			- Need the draw method square size to determine bounds
+         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JPanel canvas = new Main();
+        canvas.setBackground(Color.WHITE);
+        window.getContentPane().add(canvas);
+		*/
+		
+	    for ( ; ; ) {
+			System.out.print("Please input x-coordinate of guess: ");
+			int xGuess = input.nextInt();
+			System.out.print("Please input y-coordinate of guess: ");
+			int yGuess = input.nextInt();
+			if (computer.beenGuessed(xGuess, yGuess)) {
+				System.out.println("This space has already been guessed!");
+				continue;
+			}
+			boolean isHit = computer.fireShip(xGuess, yGuess);
+			if (isHit) {
+				System.out.println("You hit a ship!");
+			}
+			else {
+				System.out.println("You missed!");
+			}
+			if (computer.getShipNum() == 0) {
+				System.out.println("You Win!");
+				break;
+			}
+		}
     }
 }
