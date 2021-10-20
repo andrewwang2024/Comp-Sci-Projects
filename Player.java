@@ -269,12 +269,57 @@ public class Player {
         return shipNum;
     }
 
+    // Need to overload
     public void draw(Graphics g){
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("Arial", Font.PLAIN, 24));
+        int stringXIndex = 0;
+        if (getSize() % 2 == 1) {
+            stringXIndex = getSize()/2 + 1;
+            g.drawString("My Board", stringXIndex * 60 - 30, 35);
+        }
+        else {
+            stringXIndex = getSize()/2;
+            g.drawString("My Board", stringXIndex * 60, 35);
+        }
+
+        for (int i = 0; i < getSize(); i++) {
+            for (int k = 0; k < getSize(); k++) {
+                if (ships[k][i]) {
+                    g.setColor(Color.RED);
+                }
+                else {
+                    g.setColor(new Color(0, 0,0, 128));
+                }
+                g.fillRect( 50 + i * 60, 50 + k * 60, 60, 60);
+            }
+        }
         g.setColor(Color.BLACK);
         for (int i = 0; i < getSize(); i++) {
             for (int k = 0; k < getSize(); k++) {
-                g.drawRect(i * 50, k * 50, 50, 50);
+                g.drawRect( 50 + i * 60, 50 + k * 60, 60, 60);
             }
         }
+        for (int i = 0; i < getSize(); i++) {
+            for (int k = 0; k < getSize(); k++) {
+                if (beenGuessed(i, k)) {
+                    g.setColor(new Color(0,0,0, 0));
+                }
+                else if (ships[k][i]) {
+                    g.setColor(Color.BLACK);
+                }
+                else {
+                    g.setColor(Color.WHITE);
+                }
+                g.fillRect( 50 + i * 60, 50 + k * 60, 60, 60);
+            }
+        }
+        g.setColor(Color.BLACK);
+        for (int i = 0; i < getSize(); i++) {
+            for (int k = 0; k < getSize(); k++) {
+                g.drawRect( 50 + i * 60, 50 + k * 60, 60, 60);
+            }
+        }
+
     }
 }

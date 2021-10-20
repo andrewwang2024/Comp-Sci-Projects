@@ -7,10 +7,13 @@ import java.util.Scanner;
 
 public class Main extends JPanel {
 	private static Player genericPlayer;
+	private static Player computerPlayer;
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		genericPlayer.draw(g);
+		computerPlayer.draw(g);
+
 	}
 
 
@@ -37,7 +40,7 @@ public class Main extends JPanel {
 		Player computer = new Player(player.getSize(), player.getShipNum());
 		int testNum;
 		JFrame window = new JFrame("Battleship");
-        window.setBounds(100, 100, genericPlayer.getSize() * 50 - 10, genericPlayer.getSize() * 50 + 50);
+        window.setBounds(100, 100, genericPlayer.getSize() * 60 + 100, genericPlayer.getSize() * 60 + 150);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel canvas = new Main();
         canvas.setBackground(Color.WHITE);
@@ -72,17 +75,18 @@ public class Main extends JPanel {
 			else {
 				System.out.println("You missed!");
 			}
+			canvas.repaint();
 			if (computer.hitsLeft() == 0) {
 				System.out.println("You Win!");
 				break;
 			}
 			int compXPos = rand.nextInt(player.getSize());
 			int compYPos = rand.nextInt(player.getSize());
-			boolean compGuessHit = player.fireShip(compXPos, compYPos);
 			if (player.beenGuessed(compXPos, compYPos)) {
 				compXPos = rand.nextInt(player.getSize());
 				compYPos = rand.nextInt(player.getSize());
 			}
+			boolean compGuessHit = player.fireShip(compXPos, compYPos);
 			System.out.println("Computer guessed at: (" + (compXPos + 1) + "," + (compYPos + 1) + ")");
 			if (compGuessHit) {
 				System.out.println("Computer hit a ship!");
@@ -90,6 +94,7 @@ public class Main extends JPanel {
 			else {
 				System.out.println("Computer Missed!");
 			}
+			canvas.repaint();
 			if (player.hitsLeft() == 0) {
 				System.out.println("Computer Won!");
 			}
