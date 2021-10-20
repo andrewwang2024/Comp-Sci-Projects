@@ -2,6 +2,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import java.awt.*;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main extends JPanel {
@@ -10,7 +11,6 @@ public class Main extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		genericPlayer.draw(g);
-
 	}
 
 
@@ -25,7 +25,8 @@ public class Main extends JPanel {
 	 * 		- Side note, maybe make the ends of the ship more distinct with different colors?
 	 */
 
-    public static void main(String[] args) {
+	public static void main(String[] args) {
+		Random rand = new Random();
 		Scanner input = new Scanner(System.in);
 		System.out.print("Please input size: ");
 		int size = input.nextInt();
@@ -34,16 +35,28 @@ public class Main extends JPanel {
 		Player player = new Player(size, shipNum);
 		genericPlayer = player;
 		Player computer = new Player(player.getSize(), player.getShipNum());
-		// 3JFrame window = new JFrame("Battleship");
-        /* window.setBounds(100, 100, 300, 300);
-			- Need the draw method square size to determine bounds
-         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		int testNum;
+		JFrame window = new JFrame("Battleship");
+        window.setBounds(100, 100, genericPlayer.getSize() * 50 - 10, genericPlayer.getSize() * 50 + 50);
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel canvas = new Main();
         canvas.setBackground(Color.WHITE);
         window.getContentPane().add(canvas);
-		*/
-		
-	    for ( ; ; ) {
+		window.setVisible(true);
+		for (int i = 0; i < player.getSize(); i++) {
+			for (int k = 0; k < player.getSize(); k++) {
+				if (player.ships[i][k]) {
+					testNum = 1;
+				}
+				else {
+					testNum = 0;
+				}
+				System.out.print("" + testNum + " ");
+
+			}
+			System.out.print("\n");
+		}
+		for ( ; ; ) {
 			System.out.print("Please input x-coordinate of guess: ");
 			int xGuess = input.nextInt() - 1;
 			System.out.print("Please input y-coordinate of guess: ");
@@ -63,6 +76,23 @@ public class Main extends JPanel {
 				System.out.println("You Win!");
 				break;
 			}
+			int compXPos = rand.nextInt(player.getSize());
+			int compYPos = rand.nextInt(player.getSize());
+			boolean compGuessHit = player.fireShip(compXPos, compYPos);
+			if (player.beenGuessed(compXPos, compYPos)) {
+				compXPos = rand.nextInt(player.getSize());
+				compYPos = rand.nextInt(player.getSize());
+			}
+			System.out.println("Computer guessed at: (" + (compXPos + 1) + "," + (compYPos + 1) + ")");
+			if (compGuessHit) {
+				System.out.println("Computer hit a ship!");
+			}
+			else {
+				System.out.println("Computer Missed!");
+			}
+			if (player.hitsLeft() == 0) {
+				System.out.println("Computer Won!");
+			}
 		}
-    }
+	}
 }

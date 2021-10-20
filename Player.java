@@ -61,6 +61,8 @@ public class Player {
             // Initialization of ship hits
             shipHitsLeft = shipNum * 3;
 
+            this.shipNum = shipNum;
+
             // Code block for orientation determination
             orientationNum = rand.nextInt(2);
             if (orientationNum == 1) {
@@ -96,7 +98,7 @@ public class Player {
                     catch (Exception e) {
                         shipX = 0;
                     }
-                    
+
                     shipY = rand.nextInt(size);
                     isOccupied = false;
 
@@ -146,7 +148,7 @@ public class Player {
                     }
                     catch (Exception e) {
                         shipY = 0;
-                    } 
+                    }
 
                     // Checks for occupied spaces where the ship is going to be placed
                     for (int j = 0; j < 3; j++) {
@@ -223,6 +225,7 @@ public class Player {
                 }
             }
         }
+        System.out.println("Final Placement: " + this.shipNum + " ships!");
     }
 
     // Renamed method 'fire' to 'fireShip' for readability
@@ -231,14 +234,14 @@ public class Player {
     // Will implement guess check in driver class;
     public boolean fireShip(int xPos, int yPos) {
         boolean hit;
-        if (ships[xPos][yPos] == true) {
+        if (ships[yPos][xPos] == true) {
             hit = true;
             shipHitsLeft--;
         }
         else {
             hit = false;
         }
-        hits[xPos][yPos] = true;
+        hits[yPos][xPos] = true;
         return hit;
     }
 
@@ -249,7 +252,7 @@ public class Player {
     // Renamed parameters 'x' and 'y' to 'xPos' and 'yPos' for readability
     public boolean beenGuessed(int xPos, int yPos) {
         boolean verify;
-        if (hits[xPos][yPos] == true) {
+        if (hits[yPos][xPos] == true) {
             verify = true;
         }
         else {
@@ -268,6 +271,10 @@ public class Player {
 
     public void draw(Graphics g){
         g.setColor(Color.BLACK);
-        g.drawLine(0, 10, 600, 10);
-      }
+        for (int i = 0; i < getSize(); i++) {
+            for (int k = 0; k < getSize(); k++) {
+                g.drawRect(i * 50, k * 50, 50, 50);
+            }
+        }
+    }
 }
