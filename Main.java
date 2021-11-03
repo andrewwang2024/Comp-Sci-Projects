@@ -28,15 +28,30 @@ public class Main extends JPanel {
 		genericPlayer = player;
 		Player computer = new Player(player.getSize(), player.getShipNum());
 		computerPlayer = computer;
+		for ( ; ; ) {
+			if (computer.getShipNum() != player.getShipNum()) {
+				computer = new Player(player.getSize(), player.getShipNum());
+				computerPlayer = computer;
+				continue;
+			}
+			else {
+				break;
+			}
+		}
+		if (player.getShipNum() != shipNum) {
+			System.out.println("Can not place " + shipNum + " ships!");
+		}
+		System.out.println("Player Final Placement: " + player.getShipNum() + " ships!");
+		System.out.println("Computer Final Placement: " + computer.getShipNum() + " ships!");
 		int testNum;
 
 		//Graphics
 		JFrame window = new JFrame("Battleship");
-        window.setBounds(100, 100, genericPlayer.getSize() * 60 * 2 + 200, genericPlayer.getSize() * 60 + 160);
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JPanel canvas = new Main();
-        canvas.setBackground(Color.WHITE);
-        window.getContentPane().add(canvas);
+		window.setBounds(100, 100, genericPlayer.getSize() * 60 * 2 + 200, genericPlayer.getSize() * 60 + 160);
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		JPanel canvas = new Main();
+		canvas.setBackground(Color.WHITE);
+		window.getContentPane().add(canvas);
 		window.setVisible(true);
 
 		// Repeat until computer win or player win

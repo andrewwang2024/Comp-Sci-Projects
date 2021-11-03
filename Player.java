@@ -62,7 +62,6 @@ public class Player {
                 if (shipNum * 3 == size * size) {
                     shipNum--;
                 }
-                System.out.println("Not enought space! Number of ships is now " + shipNum + "!");
             }
 
             // Initialization of ship hits
@@ -136,7 +135,6 @@ public class Player {
                         if (impossibleHorizontalIncrement > shipNum * 1000) {
                             impossibleHorizontal = true;
                             i--;
-                            System.out.println("Can only place " + i + " ships!");
                             shipHitsLeft = i * 3;
                             this.shipNum = i;
                             break randomHorizontalCheck;
@@ -188,7 +186,6 @@ public class Player {
                         if (impossibleVerticalIncrement > shipNum * 1000) {
                             impossibleVertical = true;
                             i--;
-                            System.out.println("Can only place " + i + " ships!");
                             // Fix these for the upcoming update
                             shipHitsLeft = i * 3;
                             this.shipNum = i;
@@ -215,7 +212,6 @@ public class Player {
                             for (int l = 0; l < 3; l++) {
                                 ships[k][j + l] = true;
                             }
-                            System.out.println("Can only place " + i + " ships!");
                             shipHitsLeft = i * 3;
                             this.shipNum = i;
                             break;
@@ -236,7 +232,6 @@ public class Player {
                             for (int l = 0; l < 3; l++) {
                                 ships[k + l][j] = true;
                             }
-                            System.out.println("Can only place " + i + " ships!");
                             shipHitsLeft = i * 3;
                             this.shipNum = i;
                             break;
@@ -245,7 +240,6 @@ public class Player {
                 }
             }
         }
-        System.out.println("Final Placement: " + this.shipNum + " ships!");
     }
 
     // Renamed method 'fire' to 'fireShip' for readability
@@ -395,7 +389,7 @@ public class Player {
                                 guessNum = 3;
                             }
                             else if (guessNum == 2) {
-                            guessNum = 4;
+                                guessNum = 4;
                             }
                             break;
                         }
